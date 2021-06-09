@@ -12,7 +12,7 @@
 #//  Modified: 04, June, 2021                                //
 #//  file: -                                                 //
 #//  -                                                       //
-#//  Source:                                                 //
+#//  Source: https://github.com/larmel/lacc                                                //
 #//          https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/
 #//          https://schinckel.net/2021/02/12/docker-%2B-makefile/
 #//          https://www.padok.fr/en/blog/multi-architectures-docker-iot
@@ -21,7 +21,7 @@
 #//                                                          //
 #//////////////////////////////////////////////////////////////
 BASE_IMAGE := alpine:latest
-IMAGE_NAME := bensuperpc/<<IMAGE_NAME>>
+IMAGE_NAME := bensuperpc/lacc
 DOCKERFILE := Dockerfile
 
 DOCKER := docker
@@ -31,7 +31,9 @@ DATE_FULL := $(shell date -u "+%Y-%m-%dT%H:%M:%SZ")
 UUID := $(shell cat /proc/sys/kernel/random/uuid)
 VERSION := 1.0.0
 
-ARCH_LIST := linux/amd64 linux/386 linux/arm64 linux/ppc64le linux/s390x linux/arm/v7 linux/arm/v6
+#linux/386 linux/arm64 linux/ppc64le linux/s390x linux/arm/v7 linux/arm/v6
+
+ARCH_LIST := linux/amd64
 comma:= ,
 COM_ARCH_LIST:= $(subst $() $(),$(comma),$(ARCH_LIST))
 

@@ -2,13 +2,10 @@ ARG DOCKER_IMAGE=alpine:latest
 FROM $DOCKER_IMAGE AS builder
 
 RUN apk add --no-cache gcc make musl-dev git \
-	&& git clone --recurse-submodules <<GIT>>
-WORKDIR /<<IMAGE_NAME>>
-#--CPU=x86_64
-RUN ./configure --config-musl \
-	&& make -j$(nproc) \
-	&& make test -j$(nproc) \
-	&& make install
+	&& git clone --recurse-submodules https://github.com/larmel/lacc.git
+WORKDIR /lacc
+
+RUN make install
 
 ARG DOCKER_IMAGE=alpine:latest
 FROM $DOCKER_IMAGE AS runtime
@@ -25,18 +22,18 @@ COPY --from=builder /usr/local /usr/local
 
 ENV PATH="/usr/local/bin:${PATH}"
 
-ENV CC=/usr/local/bin/<<IMAGE_NAME>>
+ENV CC=/usr/local/bin/lacc
 WORKDIR /usr/src/myapp
 
-CMD ["", "-h"]
+CMD ["lacc", "-v"]
 
 LABEL org.label-schema.schema-version="1.0" \
 	  org.label-schema.build-date=$BUILD_DATE \
-	  org.label-schema.name="bensuperpc/<<IMAGE_NAME>>" \
-	  org.label-schema.description="build <<IMAGE_NAME>> compiler" \
+	  org.label-schema.name="bensuperpc/lacc" \
+	  org.label-schema.description="build lacc compiler" \
 	  org.label-schema.version=$VERSION \
 	  org.label-schema.vendor="Bensuperpc" \
 	  org.label-schema.url="http://bensuperpc.com/" \
-	  org.label-schema.vcs-url="https://github.com/Bensuperpc/docker-<<IMAGE_NAME>>" \
+	  org.label-schema.vcs-url="https://github.com/Bensuperpc/docker-lacc" \
 	  org.label-schema.vcs-ref=$VCS_REF \
-	  org.label-schema.docker.cmd="docker build -t bensuperpc/<<IMAGE_NAME>> -f Dockerfile ."
+	  org.label-schema.docker.cmd="docker build -t bensuperpc/lacc -f Dockerfile ."
