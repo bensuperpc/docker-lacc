@@ -1,11 +1,11 @@
 ARG DOCKER_IMAGE=alpine:latest
 FROM $DOCKER_IMAGE AS builder
 
-RUN apk add --no-cache gcc make musl-dev git \
+RUN apk add --no-cache gcc make musl-dev coreutils git \
 	&& git clone --recurse-submodules https://github.com/larmel/lacc.git
 WORKDIR /lacc
 
-RUN make install
+RUN make -j$(nproc) && make install -j$(nproc)
 
 ARG DOCKER_IMAGE=alpine:latest
 FROM $DOCKER_IMAGE AS runtime

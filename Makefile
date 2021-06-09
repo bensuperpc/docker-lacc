@@ -8,8 +8,8 @@
 #//////////////////////////////////////////////////////////////
 #//                                                          //
 #//  Script, 2021                                            //
-#//  Created: 04, June, 2021                                 //
-#//  Modified: 04, June, 2021                                //
+#//  Created: 09, June, 2021                                 //
+#//  Modified: 10, June, 2021                                //
 #//  file: -                                                 //
 #//  -                                                       //
 #//  Source: https://github.com/larmel/lacc                                                //
@@ -31,9 +31,9 @@ DATE_FULL := $(shell date -u "+%Y-%m-%dT%H:%M:%SZ")
 UUID := $(shell cat /proc/sys/kernel/random/uuid)
 VERSION := 1.0.0
 
-#linux/386 linux/arm64 linux/ppc64le linux/s390x linux/arm/v7 linux/arm/v6
+#linux/arm64 linux/ppc64le linux/s390x linux/arm/v7 linux/arm/v6
 
-ARCH_LIST := linux/amd64
+ARCH_LIST := linux/amd64 linux/386 linux/arm64
 comma:= ,
 COM_ARCH_LIST:= $(subst $() $(),$(comma),$(ARCH_LIST))
 
