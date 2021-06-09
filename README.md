@@ -16,7 +16,7 @@ You need Linux distribution like Ubuntu or Manjaoro
 https://github.com/bensuperpc/docker-lacc.git
 ```
 ```sh
-cd docker-cproc
+cd docker-lacc
 ```
 #### Usage
 
